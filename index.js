@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 
 // O(1) Instant Lookup Set
 const ALLOWED_TIMEZONES = new Set([
-    "Asia/Tokyo", "Asia/Kolkata"
+    "Asia/Tokyo", "Asia/Calcutta"
 ]);
 
 // Raw URLs accompanied by their selection probability weights (Must total 1.0)
